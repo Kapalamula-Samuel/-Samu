@@ -1,1 +1,35 @@
+import matplotlib.pyplot as plt
+import time
 
+def calculate_thickness(folds):
+    thickness = 0.00008  # initial thickness in mm
+    for _ in range(folds):
+        thickness *= 43
+    return thickness
+
+def compare_methods(folds):
+    start_time = time.time()
+    thickness1 = calculate_thickness(folds)
+    method1_time = time.time() - start_time
+
+    start_time = time.time()
+    thickness2 = 0.00008 * (43** folds)
+    method2_time = time.time() - start_time
+
+    return thickness1, method1_time, thickness2, method2_time
+
+def visualize_thickness(folds):
+    thicknesses = [calculate_thickness(i) for i in range(folds + 1)]
+    plt.plot(range(folds + 1), thicknesses, marker='o')
+    plt.title('Thickness of Paper vs. Number of Folds')
+    plt.xlabel('Number of Folds')
+    plt.ylabel('Thickness (m)')
+    plt.grid()
+    plt.show()
+
+if __name__ == "__main__":
+    folds = 10
+    thickness1, method1_time, thickness2, method2_time = compare_methods(folds)
+    print(f"Method 1 Thickness: {thickness1} m, Time: {method1_time} seconds")
+    print(f"Method 2 Thickness: {thickness2} m, Time: {method2_time} seconds")
+    visualize_thickness(folds)
