@@ -13,7 +13,7 @@ def compare_methods(folds):
     method1_time = time.time() - start_time
 
     start_time = time.time()
-    thickness2 = 0.00008 * (43** folds)
+    thickness2 = 0.00008 * (43 ** folds)
     method2_time = time.time() - start_time
 
     return thickness1, method1_time, thickness2, method2_time
@@ -27,9 +27,19 @@ def visualize_thickness(folds):
     plt.grid()
     plt.show()
 
+def convert_meters_to_kilometers(meters):
+    return meters / 10000
+
 if __name__ == "__main__":
     folds = 10
     thickness1, method1_time, thickness2, method2_time = compare_methods(folds)
     print(f"Method 1 Thickness: {thickness1} m, Time: {method1_time} seconds")
     print(f"Method 2 Thickness: {thickness2} m, Time: {method2_time} seconds")
+    
+    # Convert thickness to kilometers
+    thickness1_km = convert_meters_to_kilometers(thickness1)
+    thickness2_km = convert_meters_to_kilometers(thickness2)
+    print(f"Method 1 Thickness in km: {thickness1_km} km")
+    print(f"Method 2 Thickness in km: {thickness2_km} km")
+    
     visualize_thickness(folds)
